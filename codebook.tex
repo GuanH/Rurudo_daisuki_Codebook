@@ -17,6 +17,7 @@
 \usepackage{enumerate}
 \usepackage{titlesec}
 \usepackage{amsmath}
+\usepackage{tikz}
 \usepackage[CheckSingle, CJKmath]{xeCJK}
 % \usepackage{CJKulem}
 %\usepackage[T1]{fontenc}
@@ -108,6 +109,8 @@ stringstyle=\itshape\color{Green4},
 \tableofcontents
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Basic}
+\subsection{Default code}
+\lstinputlisting{basic/default_code.cpp}
 \subsection{Linux 對拍}
 \lstinputlisting{basic/stress_test_Linux.sh}
 \subsection{Windows 對拍}
@@ -127,8 +130,8 @@ stringstyle=\itshape\color{Green4},
 \lstinputlisting{datastructure/persistent_seg_tree.cpp}
 \subsection{Treap}
 \lstinputlisting{datastructure/treap.cpp}
-\subsection{zkw 線段樹}
-\lstinputlisting{datastructure/zkw_seg_tree.cpp}
+\subsection{線段樹}
+\lstinputlisting{datastructure/seg_tree.cpp}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Flow}
 \subsection{Dinic}
@@ -191,8 +194,6 @@ stringstyle=\itshape\color{Green4},
 \lstinputlisting{math/fft.cpp}
 \subsection{高斯消去法}
 \lstinputlisting{math/gaussian_elim.cpp}
-\subsection{反矩陣}
-\lstinputlisting{math/inverse_matrix.cpp}
 \subsection{喬瑟夫問題}
 \lstinputlisting{math/josephus.cpp}
 \subsection{定理}
@@ -203,6 +204,10 @@ stringstyle=\itshape\color{Green4},
 \lstinputlisting{math/ntt.cpp}
 \subsection{Pollard's Rho}
 \lstinputlisting{math/pollard_rho.cpp}
+\subsection{質數}
+\lstinputlisting{math/primes.cpp}
+\subsection{矩陣快速冪}
+\lstinputlisting{math/matrix_fast_pow.cpp}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{字串}
 \subsection{KMP}
@@ -221,6 +226,8 @@ stringstyle=\itshape\color{Green4},
 \lstinputlisting{string/trie.cpp}
 \subsection{Z-value}
 \lstinputlisting{string/z_value.cpp}
+\subsection{minRotation}
+\lstinputlisting{string/minrotation.cpp}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{DP}
 \subsection{數位 dp}
@@ -233,14 +240,89 @@ stringstyle=\itshape\color{Green4},
 \section{Other}
 \subsection{黑魔法}
 \lstinputlisting{other/black_magic.cpp}
-\subsection{CDQ 分治}
-\lstinputlisting{other/cdq.cpp}
 \subsection{DLX}
 \lstinputlisting{other/dlx.cpp}
 \subsection{Hiber Curve}
 \lstinputlisting{other/hibert_curve.cpp}
-\subsection{霍夫曼編碼}
-\lstinputlisting{other/huffman_code.cpp}
 \subsection{模擬退火}
 \lstinputlisting{other/simulated_annealing.cpp}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\ 
+\newline
+\newpage
+\ 
+\newline
+\makeatletter
+\def\grd@save@target#1{%
+  \def\grd@target{#1}}
+\def\grd@save@start#1{%
+  \def\grd@start{#1}}
+\tikzset{
+  grid with coordinates/.style={
+    to path={%
+      \pgfextra{%
+        \edef\grd@@target{(\tikztotarget)}%
+        \tikz@scan@one@point\grd@save@target\grd@@target\relax
+        \edef\grd@@start{(\tikztostart)}%
+        \tikz@scan@one@point\grd@save@start\grd@@start\relax
+        \draw[minor help lines] (\tikztostart) grid (\tikztotarget);
+        \draw[major help lines] (\tikztostart) grid (\tikztotarget);
+        \grd@start
+        \pgfmathsetmacro{\grd@xa}{\the\pgf@x/1cm}
+        \pgfmathsetmacro{\grd@ya}{\the\pgf@y/1cm}
+        \grd@target
+        \pgfmathsetmacro{\grd@xb}{\the\pgf@x/1cm}
+        \pgfmathsetmacro{\grd@yb}{\the\pgf@y/1cm}
+        \pgfmathsetmacro{\grd@xc}{\grd@xa + \pgfkeysvalueof{/tikz/grid with coordinates/major step}}
+        \pgfmathsetmacro{\grd@yc}{\grd@ya + \pgfkeysvalueof{/tikz/grid with coordinates/major step}}
+        \foreach \x in {\grd@xa,\grd@xc,...,\grd@xb}
+        \node[anchor=north] at (\x,\grd@ya) {\pgfmathprintnumber{\x}};
+        \foreach \y in {\grd@ya,\grd@yc,...,\grd@yb}
+        \node[anchor=east] at (\grd@xa,\y) {\pgfmathprintnumber{\y}};
+      }
+    }
+  },
+  minor help lines/.style={
+    help lines,
+    step=\pgfkeysvalueof{/tikz/grid with coordinates/minor step}
+  },
+  major help lines/.style={
+    help lines,
+    line width=\pgfkeysvalueof{/tikz/grid with coordinates/major line width},
+    step=\pgfkeysvalueof{/tikz/grid with coordinates/major step}
+  },
+  grid with coordinates/.cd,
+  minor step/.initial=.2,
+  major step/.initial=1,
+  major line width/.initial=2pt,
+}
+\makeatother
+
+\begin{tikzpicture}
+\draw[help lines,step=.2] (-9,-6) grid (9,6);
+\draw[help lines,line width=.6pt,step=1] (-9,-6) grid (9,6);
+\draw[help lines,line width=1.8pt,step=1] (0,-6) grid (0,6);
+\draw[help lines,line width=1.8pt,step=1] (-9,0) grid (9,0);
+\foreach \x in {-9,-8,-7,-6,-5,-4,-3,-2,-1, ,1,2,3,4,5,6,7,8,9}
+ \node[anchor=north] at (\x,0) {\x};
+\foreach \y in {-6,-5,-4,-3,-2,-1, ,1,2,3,4,5,6}
+ \node[anchor=east] at (0,\y) {\y};
+\end{tikzpicture}
+
+
+\begin{tikzpicture}
+\draw[help lines,step=.2] (-9,-6) grid (9,6);
+\draw[help lines,line width=.6pt,step=1] (-9,-6) grid (9,6);
+\draw[help lines,line width=1.8pt,step=1] (0,-6) grid (0,6);
+\draw[help lines,line width=1.8pt,step=1] (-9,0) grid (9,0);
+\foreach \x in {-9,-8,-7,-6,-5,-4,-3,-2,-1, ,1,2,3,4,5,6,7,8,9}
+ \node[anchor=north] at (\x,0) {\x};
+\foreach \y in {-6,-5,-4,-3,-2,-1, ,1,2,3,4,5,6}
+ \node[anchor=east] at (0,\y) {\y};
+\end{tikzpicture}
+
 \end{document}
+
+
+
