@@ -100,7 +100,7 @@ stringstyle=\itshape\color{Green4},
 \pagestyle{fancy}
 \fancyfoot{}
 %\fancyfoot[R]{\includegraphics[width=20pt]{ironwood.jpg}}
-\fancyhead[L]{NTOU owo}
+\fancyhead[L]{NTOU Rurudo\_daisuki}
 \fancyhead[R]{\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\contentsname}{Contents} 
@@ -164,12 +164,20 @@ stringstyle=\itshape\color{Green4},
 \lstinputlisting{geometry/minimal_ball.cpp}
 \subsection{旋轉卡尺}
 \lstinputlisting{geometry/rotating_caliper.cpp}
+\subsection{Circle Cover}
+\lstinputlisting{geometry/CircleCover.cpp}
+\subsection{Convex Hull Trick}
+\lstinputlisting{geometry/ConvexHulltrick.cpp}
+\subsection{Half Plane Intersection}
+\lstinputlisting{geometry/Half_plane_intersection.cpp}
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{圖論}
 \subsection{BCC}
 \lstinputlisting{graph/bcc.cpp}
 \subsection{重心剖分}
 \lstinputlisting{graph/centroid_decom.cpp}
+\subsection{輕重鍊剖分}
+\lstinputlisting{graph/Heavy_light_decomposition.cpp}
 \subsection{歐拉路徑}
 \lstinputlisting{graph/euler_path.cpp}
 \subsection{極大團}
@@ -247,12 +255,6 @@ stringstyle=\itshape\color{Green4},
 \subsection{模擬退火}
 \lstinputlisting{other/simulated_annealing.cpp}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
-\ 
-\newline
-\newpage
-\ 
-\newline
 \makeatletter
 \def\grd@save@target#1{%
   \def\grd@target{#1}}
@@ -299,6 +301,12 @@ stringstyle=\itshape\color{Green4},
 }
 \makeatother
 
+\vphantom
+\newline
+\newpage
+\vphantom
+\newline
+\newpage
 \begin{tikzpicture}
 \draw[help lines,step=.2] (-9,-6) grid (9,6);
 \draw[help lines,line width=.6pt,step=1] (-9,-6) grid (9,6);
@@ -310,6 +318,60 @@ stringstyle=\itshape\color{Green4},
  \node[anchor=east] at (0,\y) {\y};
 \end{tikzpicture}
 
+\begin{tikzpicture}
+\draw[help lines,step=.2] (-9,-6) grid (9,6);
+\draw[help lines,line width=.6pt,step=1] (-9,-6) grid (9,6);
+\draw[help lines,line width=1.8pt,step=1] (0,-6) grid (0,6);
+\draw[help lines,line width=1.8pt,step=1] (-9,0) grid (9,0);
+\foreach \x in {-9,-8,-7,-6,-5,-4,-3,-2,-1, ,1,2,3,4,5,6,7,8,9}
+ \node[anchor=north] at (\x,0) {\x};
+\foreach \y in {-6,-5,-4,-3,-2,-1, ,1,2,3,4,5,6}
+ \node[anchor=east] at (0,\y) {\y};
+\end{tikzpicture}
+
+\vphantom
+\newline
+\newpage
+\vphantom
+\newline
+\newpage
+\begin{tikzpicture}
+\draw[help lines,step=.2] (-9,-6) grid (9,6);
+\draw[help lines,line width=.6pt,step=1] (-9,-6) grid (9,6);
+\draw[help lines,line width=1.8pt,step=1] (0,-6) grid (0,6);
+\draw[help lines,line width=1.8pt,step=1] (-9,0) grid (9,0);
+\foreach \x in {-9,-8,-7,-6,-5,-4,-3,-2,-1, ,1,2,3,4,5,6,7,8,9}
+ \node[anchor=north] at (\x,0) {\x};
+\foreach \y in {-6,-5,-4,-3,-2,-1, ,1,2,3,4,5,6}
+ \node[anchor=east] at (0,\y) {\y};
+\end{tikzpicture}
+
+\begin{tikzpicture}
+\draw[help lines,step=.2] (-9,-6) grid (9,6);
+\draw[help lines,line width=.6pt,step=1] (-9,-6) grid (9,6);
+\draw[help lines,line width=1.8pt,step=1] (0,-6) grid (0,6);
+\draw[help lines,line width=1.8pt,step=1] (-9,0) grid (9,0);
+\foreach \x in {-9,-8,-7,-6,-5,-4,-3,-2,-1, ,1,2,3,4,5,6,7,8,9}
+ \node[anchor=north] at (\x,0) {\x};
+\foreach \y in {-6,-5,-4,-3,-2,-1, ,1,2,3,4,5,6}
+ \node[anchor=east] at (0,\y) {\y};
+\end{tikzpicture}
+\vphantom
+\newline
+\newpage
+\vphantom
+\newline
+\newpage
+\begin{tikzpicture}
+\draw[help lines,step=.2] (-9,-6) grid (9,6);
+\draw[help lines,line width=.6pt,step=1] (-9,-6) grid (9,6);
+\draw[help lines,line width=1.8pt,step=1] (0,-6) grid (0,6);
+\draw[help lines,line width=1.8pt,step=1] (-9,0) grid (9,0);
+\foreach \x in {-9,-8,-7,-6,-5,-4,-3,-2,-1, ,1,2,3,4,5,6,7,8,9}
+ \node[anchor=north] at (\x,0) {\x};
+\foreach \y in {-6,-5,-4,-3,-2,-1, ,1,2,3,4,5,6}
+ \node[anchor=east] at (0,\y) {\y};
+\end{tikzpicture}
 
 \begin{tikzpicture}
 \draw[help lines,step=.2] (-9,-6) grid (9,6);
