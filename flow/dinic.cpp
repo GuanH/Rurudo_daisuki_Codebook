@@ -1,55 +1,73 @@
-struct Dinic {
-	#define SZ(x) (int)(x.size())
-	struct Edge {
+const int MXN=1000;
+struct Dinic
+{
+	struct Edge
+	{
 		int v, f, re;
 	};
-	vector<vector<Edge>> E;
-	vector<int> level;
-	int n, s, t;
-	Dinic(int nn, int ss, int tt) {
-		n = nn; s = ss; t = tt;
-		E.resize(n);
-		level.resize(n);
+	int n, s, t, level[MXN];
+	vector<Edge> E[MXN];
+	void init(int _n, int _s, int _t)
+	{
+		n = _n;
+		s = _s;
+		t = _t;
+		for (int i = 0; i < n; i++)
+			E[i].clear();
 	}
-	void addEdge(int u, int v, int w) {
-		E[u].push_back({v, w, SZ(E[v])});
-		E[v].push_back({u, 0, SZ(E[u]) - 1});
+	void addEdge(int u, int v, int f)
+	{
+		E[u].push_back({v, f, (int)(E[v].size())});
+		E[v].push_back({u, 0, (int)(E[u].size())-1});
 	}
-	bool bfs() {
-		level.assign(n, 0);
-		queue<int> q;
-		q.push(s);
-		level[s] = 1;
-		while(!q.empty()) {
-			int u = q.front(); q.pop();
-			for(auto& it : E[u]) {
-				int v = it.v;
-				if(it.f > 0 && !level[v]) {
-					level[v] = level[u] + 1;
-					q.push(v);
+	bool BFS()
+	{
+		for (int i = 0; i < n; i++)
+			level[i] = -1;
+		queue<int> que;
+		que.push(s);
+		level[s] = 0;
+		while (!que.empty())
+		{
+			int u = que.front();
+			que.pop();
+			for (auto it : E[u])
+			{
+				if (it.f > 0 && level[it.v] == -1)
+				{
+					level[it.v] = level[u] + 1;
+					que.push(it.v);
 				}
 			}
 		}
-		return level[t];
+		return level[t] != -1;
 	}
-	int dfs(int u, int nf) {
-		if(u == t) return nf;
-		int ret = 0;
-		for(auto& it : E[u]) {
-			int v = it.v;
-			if(it.f > 0 && level[v] == level[u] + 1) {
-				int tem = dfs(v, min(nf, it.f));
-				ret += tem; nf -= tem;
-				it.f -= tem; E[v][it.re].f += tem;
-				if(!nf) return ret;
+	int DFS(int u, int nf)
+	{
+		if (u == t)
+			return nf;
+		int res = 0;
+		for (auto &it : E[u])
+		{
+			if (it.f > 0 && level[it.v] == level[u] + 1)
+			{
+				int tf = DFS(it.v, min(nf, it.f));
+				res += tf;
+				nf -= tf;
+				it.f -= tf;
+				E[it.v][it.re].f += tf;
+				if (nf == 0)
+					return res;
 			}
 		}
-		if(!ret) level[u] = 0;
-		return ret;
+		if (!res)
+			level[u] = -1;
+		return res;
 	}
-	int flow() {
-		int ret = 0;
-		while(bfs()) ret += dfs(s, 0x3f3f3f3f);
-		return ret;
+	int flow(int res = 0)
+	{
+		while (BFS())
+			res += DFS(s, 2147483647);
+		return res;
 	}
-};
+} flow;
