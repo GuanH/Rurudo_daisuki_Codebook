@@ -1,4 +1,4 @@
-# Rurudo_daisuki (2022-)
+# Rurudo_daisuki (2022-2024)
 
 ## Team member
 [Team](https://codeforces.com/team/103294)
